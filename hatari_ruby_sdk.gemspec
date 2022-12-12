@@ -6,8 +6,8 @@ require "hatari_ruby_sdk/version"
 Gem::Specification.new do |spec|
   spec.name          = "hatari_ruby_sdk"
   spec.version       = HatariRubySdk::VERSION
-  spec.authors       = ["Vicky Djoulako"]
-  spec.email         = ["vicky@voyancehq.com"]
+  spec.authors       = ["Vicky Djoulako", "Ebot Tabi"]
+  spec.email         = ["vicky@voyancehq.com", "e@voyancehq.com"]
 
   spec.summary       = %q{Write a short summary, because RubyGems requires one.}
   spec.description   = %q{Write a longer description or delete this line.}
