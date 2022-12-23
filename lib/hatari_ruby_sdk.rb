@@ -1,5 +1,5 @@
+require 'hatari_ruby_sdk/hatari'
 
 module HatariRubySdk
-  class Error < StandardError; end
-  # Your code goes here...
+  
 end
