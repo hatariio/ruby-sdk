@@ -1,6 +1,6 @@
 # Hatari Ruby SDK
 
-TODO: Describe your gem
+Use this gem from any Ruby application where you want to integrate with Hatari.
 
 ## Installation
 
