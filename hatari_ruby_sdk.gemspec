@@ -27,4 +27,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.12.0"
   spec.add_dependency 'celluloid', '~> 0.17.4'
+  spec.add_dependency 'mono_logger', '~> 1.1.1'
 end

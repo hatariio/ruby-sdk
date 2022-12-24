@@ -1,6 +1,9 @@
 require 'net/http'
+require 'uri'
+require 'json'
 require 'hatari_ruby_sdk/constants'
 require 'celluloid/current'
+require 'mono_logger'
 
 module HatariRubySdk
     class UploadEventCallback 
@@ -16,13 +19,15 @@ module HatariRubySdk
     class HatariHttpRequest
         include Celluloid
         attr_accessor :client, :event, :callback
+        logger = MonoLogger.new(STDOUT)
+        logger.level = MonoLogger::WARN
 
         def run(client, event = {}, callback = nil)
             begin
                 response =  sendEvent()
                 handleResult(response)
             rescue => e 
-               puts "There was an error while sending events to the Keen API." 
+                logger.error("There was an error while sending events to the Keen API." )
                return callback.onError(e.backtrace)
             end
         end
@@ -30,7 +35,7 @@ module HatariRubySdk
         private
 
         def sendEvent()
-            url = URI("#{HatariRubySdk::SERVER_ADDRESS}/#{HatariRubySdk::API_VERSION}/events/#{client.projectId}")
+            uri = URI.parse("#{HatariRubySdk::SERVER_ADDRESS}/#{HatariRubySdk::API_VERSION}/events/#{client.projectId}")
             http = Net::HTTP.new(uri.host, uri.port)
             header = {'Content-Type' => 'application/json', 'Accept' => 'application/json', 'Authorization' => client.apiKey}
             req = Net::HTTP::Post.new(url.path, header)
@@ -41,8 +46,8 @@ module HatariRubySdk
         def handleResult(response)
             return if callback.nil?
             return callback.onSuccess() if response.code == 201
-            puts "response code is : #{response.code}"
-            puts "response body : #{response.body}"
+            logger.error("response code is : #{response.code}")
+            logger.error("response body : #{response.body}")
             return callback.onError()
         end
     end
